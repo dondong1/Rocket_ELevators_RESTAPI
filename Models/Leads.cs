@@ -18,6 +18,9 @@ namespace Rocket_Elevators_REST_API.Models
         public string FileName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public long? customer_id { get; set; }
+        public long? CustomerId { get; set; }
+
+        public virtual Customers Customer { get; set; }
+
     }
 }

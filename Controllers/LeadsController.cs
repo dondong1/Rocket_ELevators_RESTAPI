@@ -8,7 +8,7 @@ using Rocket_Elevators_REST_API.Models;
 
 namespace Rocket_Elevators_REST_API.Controllers
 {
-  [Route("[controller]")]
+  [Route("api/Leads")]
   [ApiController]
   public class LeadsController : ControllerBase
   {
@@ -29,7 +29,7 @@ namespace Rocket_Elevators_REST_API.Controllers
     public async Task<ActionResult<List<Leads>>> LastThirtyDays()
     {
       var lead = await _context.Leads
-        .Where(lead => lead.customer_id == null)
+        .Where(lead => lead.CustomerId == null)
         .ToListAsync();
 
       var newLeads = lead.Where(lead => lead.CreatedAt <= DateTime.Today.AddDays(-30)).ToList();

@@ -29,10 +29,20 @@ namespace Rocket_Elevators_REST_API.Models
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Elevators> Elevators { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Interventions> Interventions { get; set; }
         public virtual DbSet<Leads> Leads { get; set; }
         public virtual DbSet<Quotes> Quotes { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+
+                optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=RailsApp_development;Uid=root;Pwd=Codeboxx1!;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -635,9 +645,111 @@ namespace Rocket_Elevators_REST_API.Models
                     .HasConstraintName("fk_rails_dcfd3d4fc3");
             });
 
+            modelBuilder.Entity<Interventions>(entity =>
+            {
+                entity.ToTable("interventions");
+
+                entity.HasIndex(e => e.AuthorId)
+                    .HasName("index_interventions_on_author_id");
+
+                entity.HasIndex(e => e.BatteryId)
+                    .HasName("index_interventions_on_battery_id");
+
+                entity.HasIndex(e => e.BuildingId)
+                    .HasName("index_interventions_on_building_id");
+
+                entity.HasIndex(e => e.ColumnId)
+                    .HasName("index_interventions_on_column_id");
+
+                entity.HasIndex(e => e.CustomerId)
+                    .HasName("index_interventions_on_customer_id");
+
+                entity.HasIndex(e => e.ElevatorId)
+                    .HasName("index_interventions_on_elevator_id");
+
+                entity.HasIndex(e => e.EmployeeId)
+                    .HasName("index_interventions_on_employee_id");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.AuthorId).HasColumnName("author_id");
+
+                entity.Property(e => e.BatteryId).HasColumnName("battery_id");
+
+                entity.Property(e => e.BuildingId).HasColumnName("building_id");
+
+                entity.Property(e => e.ColumnId).HasColumnName("column_id");
+
+                entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+
+                entity.Property(e => e.ElevatorId).HasColumnName("elevator_id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+
+                entity.Property(e => e.EndDateIntervention).HasColumnName("end_date_intervention");
+
+                entity.Property(e => e.Report).HasColumnName("report");
+
+                entity.Property(e => e.Result)
+                    .HasColumnName("result")
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("'Incomplete'");
+
+                entity.Property(e => e.StartDateIntervention).HasColumnName("start_date_intervention");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("'Pending'");
+
+                entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+                entity.HasOne(d => d.Author)
+                    .WithMany(p => p.InterventionsAuthor)
+                    .HasForeignKey(d => d.AuthorId)
+                    .HasConstraintName("fk_rails_6766059600");
+
+                entity.HasOne(d => d.Battery)
+                    .WithMany(p => p.Interventions)
+                    .HasForeignKey(d => d.BatteryId)
+                    .HasConstraintName("fk_rails_268aede6d6");
+
+                entity.HasOne(d => d.Building)
+                    .WithMany(p => p.Interventions)
+                    .HasForeignKey(d => d.BuildingId)
+                    .HasConstraintName("fk_rails_911b4ef939");
+
+                entity.HasOne(d => d.Column)
+                    .WithMany(p => p.Interventions)
+                    .HasForeignKey(d => d.ColumnId)
+                    .HasConstraintName("fk_rails_d05fb241b3");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Interventions)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("fk_rails_4242c0f569");
+
+                entity.HasOne(d => d.Elevator)
+                    .WithMany(p => p.Interventions)
+                    .HasForeignKey(d => d.ElevatorId)
+                    .HasConstraintName("fk_rails_11b5a4bd36");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.InterventionsEmployee)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .HasConstraintName("fk_rails_2e0d31b7ad");
+            });
+
             modelBuilder.Entity<Leads>(entity =>
             {
                 entity.ToTable("leads");
+
+                entity.HasIndex(e => e.CustomerId)
+                    .HasName("index_leads_on_customer_id");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -651,6 +763,8 @@ namespace Rocket_Elevators_REST_API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
+                entity.Property(e => e.CustomerId).HasColumnName("customer_id");
 
                 entity.Property(e => e.DepartmentInChargeOfElevators)
                     .HasColumnName("department_in_charge_of_elevators")
@@ -687,6 +801,11 @@ namespace Rocket_Elevators_REST_API.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Leads)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("fk_rails_da25e077a0");
             });
 
             modelBuilder.Entity<Quotes>(entity =>
