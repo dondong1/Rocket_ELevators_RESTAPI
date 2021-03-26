@@ -5,6 +5,11 @@ namespace Rocket_Elevators_REST_API.Models
 {
     public partial class Elevators
     {
+        public Elevators()
+        {
+            Interventions = new HashSet<Interventions>();
+        }
+
         public long Id { get; set; }
         public string SerialNumber { get; set; }
         public string Model { get; set; }
@@ -20,5 +25,6 @@ namespace Rocket_Elevators_REST_API.Models
         public long? ColumnId { get; set; }
 
         public virtual Columns Column { get; set; }
+        public virtual ICollection<Interventions> Interventions { get; set; }
     }
 }

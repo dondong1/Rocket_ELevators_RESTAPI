@@ -1,0 +1,11 @@
+
+"Server=codeboxx.cq6zrczewpu2.us-east-1.rds.amazonaws.com;port=3306;Database=DonNguyen;uid=codeboxx;password=Codeboxx1!",
+
+# // development:
+# // #    adapter: mysql2
+# // #    encoding: utf8
+# // #    username: codeboxx
+# // #    password: Codeboxx1!
+# // #    host: codeboxx.cq6zrczewpu2.us-east-1.rds.amazonaws.com
+# // #    port: 3306
+# // #    database: TeddyBlanco
