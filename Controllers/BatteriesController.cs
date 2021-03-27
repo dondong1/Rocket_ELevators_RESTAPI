@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace Rocket_Elevators_REST_API.Controllers
 {
-  [Produces("application/json")]
+//   [Produces("application/json")]
   [Route("api/Batteries")]
   [ApiController]
   public class BatteriesController : ControllerBase
