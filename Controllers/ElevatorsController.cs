@@ -28,23 +28,23 @@ namespace Rocket_Elevators_REST_API.Controllers
     }
 
         // GET: api/Elevators
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Elevators>>> Getelevators()
-        {
+//         [HttpGet]
+//         public async Task<ActionResult<IEnumerable<Elevators>>> Getelevators()
+//         {
            
- //////This return all commercial elevators where date of last inspection is over a year
-            DateTime current =  DateTime.Now.AddMonths(-12);
+//  //////This return all commercial elevators where date of last inspection is over a year
+//             DateTime current =  DateTime.Now.AddMonths(-12);
 
-            var queryElevators = from elev in _context.Elevators
-                                 where elev.BuildingType == "Commercial" || elev.DateOfLastInspection < current
-                                 select elev;
+//             var queryElevators = from elev in _context.Elevators
+//                                  where elev.BuildingType == "Commercial" || elev.DateOfLastInspection < current
+//                                  select elev;
 
-            var distinctElevators = (from elev in queryElevators
-                                    select elev).Distinct();
+//             var distinctElevators = (from elev in queryElevators
+//                                     select elev).Distinct();
 
 
-            return await distinctElevators.ToListAsync();
-        }
+//             return await distinctElevators.ToListAsync();
+//         }
 
         
         [HttpPatch("{id}")]
