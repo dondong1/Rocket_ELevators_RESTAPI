@@ -27,11 +27,11 @@ namespace Rocket_Elevators_REST_API.Controllers
       return await _context.Columns.ToListAsync();
     }
 // GET: api/Columns
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Columns>>> Getcolumns()
-        {
-            return await _context.Columns.Include(b => b.Battery).ToListAsync();
-        }
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<Columns>>> Getcolumns()
+        // {
+        //     return await _context.Columns.Include(b => b.Battery).ToListAsync();
+        // }
 
         
         [HttpPatch("{id}")]

@@ -42,12 +42,12 @@ namespace Rocket_Elevators_REST_API.Controllers
 //
 //
 // GET: api/Batteries
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Batteries>>> Getbatteries()
-        {
-            return await _context.Batteries.ToListAsync();
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<Batteries>>> Getbatteries()
+        // {
+        //     return await _context.Batteries.ToListAsync();
         
-        }
+        // }
          ////PATCH METHOD, where you change the status 
         
         [HttpPatch("{id}")]
