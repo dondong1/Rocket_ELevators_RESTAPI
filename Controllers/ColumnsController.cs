@@ -30,9 +30,7 @@ namespace Rocket_Elevators_REST_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Columns>>> Getcolumns()
         {
-            return await _context.Columns
-            .Include(b => b.Battery)
-            .ToListAsync();
+            return await _context.Columns.Include(b => b.Battery).ToListAsync();
         }
 
         
