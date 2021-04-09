@@ -119,6 +119,20 @@ namespace Rocket_Elevators_REST_API.Controllers
             return _context.Buildings.Any(e => e.Id == id);
         }
 
+
+        [HttpGet("CustomerId/{customersId}")]
+        public async Task<ActionResult<List<Buildings>>> GetbuildingByCustomerId(long customersId)
+            {
+                var buildings = await _context.Buildings.Where(c => c.customer_id == customersId).ToListAsync();
+
+                if (buildings == null)
+                {
+                    return NotFound();
+                }
+
+                return buildings;
+            }
+        }
     // // GET: api/Buildings
     // [HttpGet]
     // public async Task<ActionResult<IEnumerable<Buildings>>> GetBuilding()
