@@ -121,18 +121,18 @@ namespace Rocket_Elevators_REST_API.Controllers
 
 
         [HttpGet("CustomerId/{customersId}")]
-        public async Task<ActionResult<List<Buildings>>> GetbuildingByCustomerId(long customersId)
+        public async Task<ActionResult<List<Buildings>>> GetbuildingByCustomerId(long CustomerId)
+        {
+            var buildings = await _context.Buildings.Where(c => c.CustomerId == CustomerId).ToListAsync();
+
+            if (buildings == null)
             {
-                var buildings = await _context.Buildings.Where(c => c.customer_id == customersId).ToListAsync();
-
-                if (buildings == null)
-                {
-                    return NotFound();
-                }
-
-                return buildings;
+                return NotFound();
             }
+
+            return buildings;
         }
+        
     // // GET: api/Buildings
     // [HttpGet]
     // public async Task<ActionResult<IEnumerable<Buildings>>> GetBuilding()
