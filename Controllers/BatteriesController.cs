@@ -141,7 +141,7 @@ namespace Rocket_Elevators_REST_API.Controllers
         [HttpGet("buildingId/{buildingId}")]
         public async Task<ActionResult<IEnumerable<Batteries>>> GetbatteriesBybuildingId(long buildingId)
         {
-            var batteries = await _context.Batteries.Where(c => c.BuildingId == buildingId).ToListAsync();
+            var batteries = await _context.Batteries.Where(c => c.CustomerId == CustomerId).ToListAsync();
 
             if (batteries == null)
             {

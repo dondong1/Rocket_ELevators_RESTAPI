@@ -150,7 +150,7 @@ namespace Rocket_Elevators_REST_API.Controllers
         [HttpGet("columnId/{columnId}")]
         public async Task<ActionResult<IEnumerable<Elevators>>> GetelevatorByColumnId(long columnId)
         {
-            var elevators = await _context.Elevators.Where(c => c.ColumnId == columnId).ToListAsync();
+            var elevators = await _context.Elevators.Where(c => c.CustomerId == CustomerId).ToListAsync();
 
             if (elevators == null)
             {
