@@ -120,7 +120,7 @@ namespace Rocket_Elevators_REST_API.Controllers
         }
 
 
-        [HttpGet("CustomerId/{customersId}")]
+        [HttpGet("CustomerId/{CustomerId}")]
         public async Task<ActionResult<List<Buildings>>> GetbuildingByCustomerId(long CustomerId)
         {
             var buildings = await _context.Buildings.Where(c => c.CustomerId == CustomerId).ToListAsync();
