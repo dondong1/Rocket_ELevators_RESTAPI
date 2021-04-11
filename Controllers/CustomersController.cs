@@ -32,23 +32,17 @@ namespace Rocket_Elevator_RESTApi.Controllers
         // ========== Get all the infos about a customer (buildings, batteries, columns, elevators) using the customer_id ==========
         // GET: api/Customers/cindy@client.com
         [HttpGet("{email}")]
-        public async Task<ActionResult<Customers>> GetCustomer(string email)
+         public async Task<ActionResult<List<Customers>>> GetCustomerbyEmail(string Email)
         {
-            var customer = await _context.Customers.Include("Buildings.Batteries.Columns.Elevators")
-                                                .Where(c => c.EmailOfCompanyContact == email)
-                                                .FirstOrDefaultAsync();  
+            var customer = await _context.Customers.Where(c => c.CpyContactEmail == Email).ToListAsync();
 
-            // customer = await _context.customers.Include("Buildings.Addresses")
-            //                                     .Where(c => c.cpy_contact_email == email)
-            //                                     .FirstOrDefaultAsync();          
-
-            if (customer == null)
+            if (!CustomerExists(Email))
             {
-                return NotFound();
+                return BadRequest();
             }
 
             return customer;
-        } 
+        }
 
         // ========== Verify email for register at the Customer's Portal =========================================================================
         // GET: api/Customers/verify/cindy@client.com
