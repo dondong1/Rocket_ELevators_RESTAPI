@@ -34,7 +34,7 @@ namespace Rocket_Elevator_RESTApi.Controllers
         [HttpGet("{email}")]
          public async Task<ActionResult<List<Customers>>> GetCustomerbyEmail(string Email)
         {
-            var customer = await _context.Customers.Where(c => c.CpyContactEmail == Email).ToListAsync();
+            var customer = await _context.Customers.Where(c => c.EmailOfCompanyContact == Email).ToListAsync();
 
             if (!CustomerExists(Email))
             {
@@ -86,6 +86,10 @@ namespace Rocket_Elevator_RESTApi.Controllers
             await _context.SaveChangesAsync();
 
             return customerToUpdate;
+        }
+         private bool CustomerExists(string email)
+        {
+            return _context.Customers.Any(e => e.EmailOfCompanyContact == email);
         }
     }
 }
