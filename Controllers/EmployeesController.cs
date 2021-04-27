@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rocket_Elevators_REST_API.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Rocket_Elevator_RESTApi.Controllers
 {
@@ -25,7 +26,8 @@ namespace Rocket_Elevator_RESTApi.Controllers
         
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employees>>> Getemployees()
+        public async Task<ActionResult<IEnumerable<Employees>>> GetEmployees()
+
         {
             return await _context.Employees.ToListAsync();
         }
@@ -33,11 +35,11 @@ namespace Rocket_Elevator_RESTApi.Controllers
         // ========== Get all the infos about a customer (buildings, batteries, columns, elevators) using the customer_id ==========
         // GET: api/Employees/cindy@client.com
         [HttpGet("{email}")]
-         public async Task<ActionResult<List<Employees>>> GetEmployeebyEmail(string Email)
+         public async Task<ActionResult<List<Employees>>> GetEmployeebys(string Email)
         {
             var employee = await _context.Employees.Where(c => c.Email == Email).ToListAsync();
 
-            if (EmployeesController == null)
+            if (Employees == null)
             {
                 return BadRequest();
             }
