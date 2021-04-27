@@ -23,11 +23,9 @@ namespace Rocket_Elevator_RESTApi.Controllers
             _context = context;
         }
 
-        
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employees>>> GetEmployees()
-
         {
             return await _context.Employees.ToListAsync();
         }
@@ -35,11 +33,11 @@ namespace Rocket_Elevator_RESTApi.Controllers
         // ========== Get all the infos about a customer (buildings, batteries, columns, elevators) using the customer_id ==========
         // GET: api/Employees/cindy@client.com
         [HttpGet("{email}")]
-         public async Task<ActionResult<List<Employees>>> GetEmployeebys(string Email)
+         public async Task<ActionResult<List<Employees>>> GetEmployees(string Email)
         {
             var employee = await _context.Employees.Where(c => c.Email == Email).ToListAsync();
 
-            if (Employees == null)
+           if (!EmployeeExists(Email))
             {
                 return BadRequest();
             }
@@ -63,7 +61,10 @@ namespace Rocket_Elevator_RESTApi.Controllers
 
             return Ok();
         } 
-
+         private bool EmployeeExists(string email)
+        {
+            return _context.Employees.Any(e => e.Email == email);
+        }
        
     }
 }
