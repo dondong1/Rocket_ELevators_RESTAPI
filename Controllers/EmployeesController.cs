@@ -22,11 +22,12 @@ namespace Rocket_Elevator_RESTApi.Controllers
             _context = context;
         }
 
+        
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employees>>> Getemployees()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Employees.ToListAsync();
         }
 
         // ========== Get all the infos about a customer (buildings, batteries, columns, elevators) using the customer_id ==========
@@ -36,7 +37,7 @@ namespace Rocket_Elevator_RESTApi.Controllers
         {
             var employee = await _context.Employees.Where(c => c.Email == Email).ToListAsync();
 
-            if (!EmployeeExists(Email))
+            if (EmployeesController == null)
             {
                 return BadRequest();
             }
