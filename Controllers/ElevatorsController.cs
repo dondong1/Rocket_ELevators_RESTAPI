@@ -119,11 +119,11 @@ namespace Rocket_Elevators_REST_API.Controllers
         {
         IQueryable<Elevators> Elevators =
         from elev in _context.Elevators
-        where elev.status == "Inactive"
+        where elev.Status == "Inactive"
         select elev;
         return Elevators.ToList();
         }
-        
+
         // POST: api/Elevators
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
